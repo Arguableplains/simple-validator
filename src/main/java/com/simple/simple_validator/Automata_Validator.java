@@ -69,7 +69,15 @@ public class Automata_Validator{
                         }
 
                         else if ((symbol == '.') && top == 'n') {
-                            stack.clear();
+
+                            for (int k = 0; k < "nnnnnnf".length(); k++) {
+                                if (stack.peek() == "nnnnnnf".charAt(k)){
+                                    stack.pop();
+                                }
+                                else{
+                                    return false;
+                                }
+                            }
 
                             for (int j = "nnn.nnn-f".length() - 1; j >= 0; j--) {
                                 stack.push("nnn.nnn-f".charAt(j));
@@ -137,11 +145,20 @@ public class Automata_Validator{
                         }
 
                         else if ((symbol == '.') && top == 'n') {
-                            stack.clear();
+
+                            for (int k = 0; k < "nnnnnnnf".length(); k++) {
+                                if (stack.peek() == "nnnnnnnf".charAt(k)){
+                                    stack.pop();
+                                }
+                                else{
+                                    return false;
+                                }
+                            }
 
                             for (int j = "nnn.nnn-nf".length() - 1; j >= 0; j--) {
                                 stack.push("nnn.nnn-nf".charAt(j));
                             }
+
                         }
 
                         else if ((symbol == '.') && top == '.') {
@@ -168,22 +185,6 @@ public class Automata_Validator{
             return (currentState == State.Q2);
         }
 
-
-        /*
-        // Simple main() for quick tests
-        public static void main(String[] args) {
-            String[] tests = {
-                "123",      // might fail if you need to read top==f at the last digit
-                "1234.56",
-                "12,345",
-                "9999999"   // maybe uses up all 'n's
-            };
-
-            for (String t : tests) {
-                System.out.println(t + " => " + validate(t));
-            }
-        }
-        */
     }
 
     /*
