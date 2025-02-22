@@ -63,7 +63,7 @@ public class Automata_Validator{
                             stack.pop();
                         }
 
-                        else if (Character.isDigit(symbol) && top == 'f') {
+                        else if ((Character.isDigit(symbol) || symbol == 'X') && top == 'f') {
                             stack.pop();
                             currentState = State.Q2;
                         }
@@ -105,7 +105,19 @@ public class Automata_Validator{
                 }
             }
 
-            return (currentState == State.Q2);
+            input = input.replaceAll("[^0-9X]", "");
+
+            int sum = 0;
+            for (int i = 0; i < 8; i++) {
+                sum += Character.getNumericValue(input.charAt(i)) * (9 - i);
+            }
+
+            int remainder = sum % 11;
+            int digit = (remainder == 10) ? 'X' : remainder;
+
+            char lastChar = input.charAt(8);
+
+            return (currentState == State.Q2 && ((lastChar == 'X' && digit == 'X') || (Character.getNumericValue(lastChar) == digit)));
         }
 
         public static boolean validateCPF(String input) {
@@ -182,7 +194,23 @@ public class Automata_Validator{
                 }
             }
 
-            return (currentState == State.Q2);
+            input = input.replaceAll("[^0-9]", "");
+
+            int sum = 0;
+            for (int i = 0; i < 9; i++) {
+                sum += Character.getNumericValue(input.charAt(i)) * (10 - i);
+            }
+            int remainder = sum % 11;
+            int digit1 = (remainder < 2) ? 0 : 11 - remainder;
+
+            sum = 0;
+            for (int i = 0; i < 10; i++) {
+                sum += Character.getNumericValue(input.charAt(i)) * (11 - i);
+            }
+            remainder = sum % 11;
+            int digit2 = (remainder < 2) ? 0 : 11 - remainder;
+
+            return (currentState == State.Q2 && (Character.getNumericValue(input.charAt(9)) == digit1 && Character.getNumericValue(input.charAt(10)) == digit2));
         }
 
     }
@@ -451,21 +479,7 @@ public class Automata_Validator{
     }
 
     public static boolean validateRG(String rg) {
-        // Remove non-numeric characters
-        rg = rg.replaceAll("[^0-9X]", "");
 
-        // Compute the verification digit
-        int sum = 0;
-        for (int i = 0; i < 8; i++) {
-            sum += Character.getNumericValue(rg.charAt(i)) * (9 - i);
-        }
-
-        int remainder = sum % 11;
-        int digit = (remainder == 10) ? 'X' : remainder;
-
-        // Compare with the last character (which could be 'X')
-        char lastChar = rg.charAt(8);
-        return (lastChar == 'X' && digit == 'X') || (Character.getNumericValue(lastChar) == digit);
     }
 
     // Final method
