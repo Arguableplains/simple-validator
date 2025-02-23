@@ -32,8 +32,7 @@ public class MainController {
         Validation result = Validation.INVALID;
         String message = "";
 
-        try{result = Automata_Validator.validate(document);}
-        catch(Exception e){model.addAttribute("message", "Something went wrong!");}
+        result = Automata_Validator.validate(document);
 
         switch (result) {
             case RG:

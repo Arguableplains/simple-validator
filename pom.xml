@@ -42,8 +42,8 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -52,15 +52,8 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-
-        <!-- Frontend Maven Plugin to build Tailwind CSS -->
-        <plugin>
-            <groupId>com.github.eirslett</groupId>
-            <artifactId>frontend-maven-plugin</artifactId>
-            <version>1.13.3</version>
-
-        </plugin>
-    </plugins>
+		</plugins>
 	</build>
+
 
 </project>
